@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
@@ -80,22 +81,6 @@ public class MainActivity extends AppCompatActivity {
         mapboxMap.addPolyline(polyline);
     }
 
-    /*
-    private void setPolygon(MapboxMap mapboxMap) {
-
-       // List<com.mapbox.mapboxsdk.geometry.LatLng> coordinates = new ArrayList<>();
-        //coordinates.add(new com.mapbox.mapboxsdk.geometry.LatLng(37.776060, -122.387055));
-        //coordinates.add(new com.mapbox.mapboxsdk.geometry.LatLng(37.776275, -122.385091));
-        //coordinates.add(new com.mapbox.mapboxsdk.geometry.LatLng(37.775459, -122.384966));
-        //coordinates.add(new com.mapbox.mapboxsdk.geometry.LatLng(37.775235, -122.386998));
-
-        PolygonOptions polygon = new PolygonOptions();
-        polygon.addAll(coordinates);
-        polygon.fillColor(Color.rgb(255, 105, 0));
-        polygon.strokeColor(Color.RED);
-        mapboxMap.addPolygon(polygon);
-    }
-    */
 
     private void addPoliceMarker(MapboxMap mapboxMap){
         MarkerOptions marker = new MarkerOptions();
