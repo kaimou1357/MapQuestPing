@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
@@ -29,6 +31,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private MapboxMap mMapboxMap;
     private MapView mMapView;
+    private FloatingActionButton fab;
     public ArrayList<LatLng> directions = new ArrayList<LatLng>();
 
     private final com.mapbox.mapboxsdk.geometry.LatLng TECHCRUNCH = new com.mapbox.mapboxsdk.geometry.LatLng(37.775889, -122.386657);
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+
         setSupportActionBar(toolbar);
         client.returnCoordinates();
         mMapView = (MapView) findViewById(R.id.mapquestMapView);
@@ -53,10 +59,17 @@ public class MainActivity extends AppCompatActivity {
                 mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.mapbox.mapboxsdk.geometry.LatLng(37.772043, -122.398978), 13));
                 addMarker(mMapboxMap);
                 addPoliceMarker(mMapboxMap);
-               // setPolygon(mMapboxMap);
-                setPolyline(mMapboxMap);
+                // setPolygon(mMapboxMap);
+                // setPolyline(mMapboxMap);
             }
 
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setPolyline(mMapboxMap);
+            }
         });
     }
 
@@ -85,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         PolylineOptions polyline = new PolylineOptions();
         polyline.addAll(coordinates);
         polyline.width(3);
-        polyline.color(Color.BLUE);
+        polyline.color(Color.RED);
         mapboxMap.addPolyline(polyline);
     }
 
