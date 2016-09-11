@@ -1,7 +1,11 @@
 package com.example.kaimou.mapquestping;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -9,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
@@ -56,10 +61,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addMarker(MapboxMap mapboxMap) {
+
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(TECHCRUNCH);
         markerOptions.title("Pier 48");
         markerOptions.snippet("TechCrunch Rocks!");
+
         mapboxMap.addMarker(markerOptions);
     }
     private void setPolyline(MapboxMap mapboxMap) {
@@ -83,8 +91,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addPoliceMarker(MapboxMap mapboxMap){
+        IconFactory factory = IconFactory.getInstance(MainActivity.this);
+        Drawable iconDrawable = ContextCompat.getDrawable(MainActivity.this, R.drawable.star);
+        Drawable resizedIcon = resize(iconDrawable);
+        Icon icon = factory.fromDrawable(resizedIcon);
         MarkerOptions marker = new MarkerOptions();
         marker.position(POLICE_STATION);
+        marker.icon(icon);
         marker.title("San Francisco Police Station");
         marker.snippet("Get Here Quickly!");
         mapboxMap.addMarker(marker);
@@ -97,6 +110,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private Drawable resize(Drawable image){
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap bitMapResized = Bitmap.createScaledBitmap(b, 100, 100, false);
+        return new BitmapDrawable(getResources(), bitMapResized);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
